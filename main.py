@@ -5,7 +5,7 @@ import os
 #Conexão com o servidor
 ftp=FTP_TLS('ftp.server.test@testserver.com')
 print('Conexão realizada com sucesso.')
-ftp.login(user='api@testserver.com',passwd='Api@2020')
+ftp.login(user='your_user',passwd='your_password')
 print('Login efetuado com sucesso.')
 ftp.prot_p() #Método relacionado a segurança TSL
 
@@ -23,11 +23,11 @@ ftp.retrbinary('RETR '+dirArquivo,local.write)
 print('Download concluido com sucesso.')
 
 '''
-#Movendo o arquivo para a pasta backup.
+#Movendo o arquivo para a pasta backup - BE CAREFUL!
 ftp.rename(dirArquivo,r'/outbound/report/customer_instance_info/backup/'+dirArquivo)
 ftp.cwd('/outbound/report/customer_instance_info/')
 
-#Excluido o diretório
+#Excluido o diretório - BE CAREFUL!
 files = list(ftp.nlst(dir2))
 for f in files:
     ftp.delete(f)
@@ -41,4 +41,5 @@ local.close()
 
 #Alterando o nome do arquivo local
 nameArq=dirArquivo[:26]+'.zip'
+
 os.rename(r'../fatp_report_extract\Reports\\'+dirArquivo,r'../ftp_report_extract\Reports\\'+nameArq)
